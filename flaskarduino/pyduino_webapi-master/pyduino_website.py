@@ -42,16 +42,15 @@ def hello_world():
 
             # turn on LED on arduino
             a.digital_write(LED_PIN,1)
-            a.PWM_write(100)
+            a.PWM_write(1000)
 
         # if we press the turn off button
         elif request.form['submit'] == '2':
             status = 'Двигатель включен, едет на 2й этаж'
             status_time = str(datetime.datetime.now())
             # turn off LED on arduino
-            a.digital_write(LED_PIN, 0)
-            a.PWM_write(100)
-
+            a.digital_write(LED_PIN, 1)
+            a.PWM_write(1000)
         elif request.form['submit'] == 'Остановить':
             status = 'Двигатель выключен'
             status_time = str(datetime.datetime.now())
