@@ -49,7 +49,7 @@ class Arduino():
         """
         command = (''.join(('WD', str(pin_number), ':',
             str(digital_value)))).encode()
-        self.conn.write(command) 
+        self.conn.write(command)
      
     def analog_read(self, pin_number):
         """
@@ -74,13 +74,9 @@ class Arduino():
             str(analog_value)))).encode()
         self.conn.write(command)
     def PWM_write(self, PWM_value):
-        """
-        Writes the analog value (0 to 255) on pin_number
-        Internally sends b'WA{pin_number}:{analog_value}' over the serial
-        connection
-        """
-        command = (''.join(('WPWM', ':',
-            str(PWM_value)))).encode()
+
+        command = (''.join(('Wm', ':', str(PWM_value)))).encode()
+        print(command)
         self.conn.write(command)
 
     def PWM_write_stop(self):
@@ -89,7 +85,8 @@ class Arduino():
         Internally sends b'WA{pin_number}:{analog_value}' over the serial
         connection
         """
-        command = (''.join(('WSTOP',))).encode()
+        command = (''.join('WS')).encode()
+        print(command)
         self.conn.write(command)
 
 

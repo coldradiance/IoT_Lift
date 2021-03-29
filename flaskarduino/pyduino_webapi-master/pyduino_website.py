@@ -42,7 +42,7 @@ def hello_world():
 
             # turn on LED on arduino
             a.digital_write(LED_PIN,1)
-            # a.PWM_write(100)
+            a.PWM_write(100)
 
         # if we press the turn off button
         elif request.form['submit'] == '2':
@@ -63,7 +63,7 @@ def hello_world():
             pass
 
     # read in analog value from photoresistor
-    readval = a.digital_read(ANALOG_PIN)
+    # readval = a.digital_read(ANALOG_PIN)
 
     # the default page to display will be our template with our template variables
     return render_template('index.html', status=status, status_time=status_time)
