@@ -85,7 +85,7 @@ class Arduino():
         Internally sends b'WA{pin_number}:{analog_value}' over the serial
         connection
         """
-        command = (''.join('WS')).encode()
+        command = (''.join('Ws')).encode()
         print(command)
         self.conn.write(command)
 

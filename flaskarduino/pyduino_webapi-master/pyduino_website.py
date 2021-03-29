@@ -50,13 +50,14 @@ def hello_world():
             status_time = str(datetime.datetime.now())
             # turn off LED on arduino
             a.digital_write(LED_PIN, 0)
-            # a.PWM_write(100)
+            a.PWM_write(100)
+
         elif request.form['submit'] == 'Остановить':
             status = 'Двигатель выключен'
             status_time = str(datetime.datetime.now())
             # turn off LED on arduino
             a.digital_write(LED_PIN, 0)
-            # a.PWM_write_stop()
+            a.PWM_write_stop()
 
 
         else:
