@@ -34,14 +34,14 @@ def hello_world():
 
     # if we make a post request on the webpage aka press button then do stuff
     if request.method == 'POST':
-
+        # плавно останавливается после датчика
         # if we press the turn on button
         if request.form['submit'] == '1':
             status = 'Двигатель включен, едет на первый этаж'
             status_time = str(datetime.datetime.now())
 
             # turn on LED on arduino
-            a.digital_write(LED_PIN,1)
+            a.digital_write(LED_PIN, 1)
             a.PWM_write(1000)
 
         # if we press the turn off button
@@ -57,8 +57,12 @@ def hello_world():
             # turn off LED on arduino
             a.digital_write(LED_PIN, 0)
             a.PWM_write_stop()
-
-
+        elif request.form['submit'] == 'Вниз':
+            status = 'Двигатель едет вниз'
+            status_time = str(datetime.datetime.now())
+            # turn off LED on arduino
+            a.digital_write(LED_PIN, 1)
+            a.PWM_reverce(1000)
         else:
             pass
 
@@ -67,6 +71,7 @@ def hello_world():
 
     # the default page to display will be our template with our template variables
     return render_template('index.html', status=status, status_time=status_time)
+
 
 
 # unsecure API urls

@@ -79,6 +79,12 @@ class Arduino():
         print(command)
         self.conn.write(command)
 
+    def PWM_reverce(self, PWM_value):
+
+        command = (''.join(('Wr', ':', str(PWM_value)))).encode()
+        print(command)
+        self.conn.write(command)
+
     def PWM_write_stop(self):
         """
         Writes the analog value (0 to 255) on pin_number
