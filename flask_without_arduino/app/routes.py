@@ -1,9 +1,10 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, json
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
+from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 from app.tabl import log
@@ -23,6 +24,13 @@ def index1():
                result = log()
      return render_template('index1.html',title='Home', result = result)
 
+@app.route('/update_log', methods=['GET', 'POST'])
+def update_log():
+    result = log()
+    str_log = ''
+    for ii in result:
+        str_log = str_log + str(ii[0])+"\t"+str(ii[1])+"\t"+str(ii[2])+"\t"+str(ii[3])+"<br />"
+    return json.dumps({'result': str_log})
 
 
 @app.route('/login', methods=['GET', 'POST'])

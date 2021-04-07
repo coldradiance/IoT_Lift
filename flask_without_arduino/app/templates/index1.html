@@ -2,6 +2,30 @@
 
 {% block content %}
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+        function update_log() {
+            $.ajax({
+                type: "POST",
+                url: "/update_log",
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(response) {
+                    var json = jQuery.parseJSON(response)
+                    $('#result').html(json.result)
+$('#id1').html(json.id1)
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+
+
 
   <div class="container">
     <div class="header clearfix">
@@ -35,23 +59,13 @@
 
 
 
-
-
-        <form id="form_log" action="{{ url_for('index1') }}" method="post">
-              <p><input type="submit" name="log" value="Обновить журнал"> </p>
-
+    <form action="/update_log" method="post" name="form">
+        <input type="button" value="Обновить журнал" onclick="update_log();">
     </form>
-
-
 
     <div class="jumbotron">
       <h1>Журнал</h1>
-{%for r in result %}
-
-<p>{{ r }}</p>
-
-{% endfor %}
-
+<p id="result"></p>
     </div>
 
 
