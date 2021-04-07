@@ -15,13 +15,11 @@ from app.tabl import log
 def index1():
      result = ''
      if request.method == 'POST':
-          print(0)
-#          if request.form['floor1'] == '1':
-#               print('кнопа 1')
+          if request.form['floor'] == '1':
+               print('кнопа 1')
+          elif request.form['floor'] == '2':
+               print('кнопа 2')
 
-          if request.form['log'] == 'Обновить журнал':
-               print('Обновить журнал')
-               result = log()
      return render_template('index1.html',title='Home', result = result)
 
 @app.route('/update_log', methods=['GET', 'POST'])
