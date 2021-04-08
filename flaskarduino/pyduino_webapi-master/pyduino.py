@@ -73,26 +73,17 @@ class Arduino():
         command = (''.join(('WA', str(pin_number), ':',
             str(analog_value)))).encode()
         self.conn.write(command)
-    def PWM_write(self, PWM_value):
 
-        command = (''.join(('Wm', ':', str(PWM_value)))).encode()
-        print(command)
+    def motor_run(self):
+        command = (''.join('ER')).encode()
         self.conn.write(command)
 
-    def PWM_reverce(self, PWM_value):
-
-        command = (''.join(('Wr', ':', str(PWM_value)))).encode()
-        print(command)
+    def motor_reverce(self):
+        command = (''.join('EC')).encode()
         self.conn.write(command)
 
-    def PWM_write_stop(self):
-        """
-        Writes the analog value (0 to 255) on pin_number
-        Internally sends b'WA{pin_number}:{analog_value}' over the serial
-        connection
-        """
-        command = (''.join('Ws')).encode()
-        print(command)
+    def motor_stop(self):
+        command = (''.join('ES')).encode()
         self.conn.write(command)
 
 
