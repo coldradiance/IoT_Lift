@@ -9,18 +9,38 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from app.tabl import log
 
+mode = 0
+control_mode = ''
+flag = False
+
 @app.route('/')
 @app.route('/index1', methods = ['POST','GET'])
 @login_required
 def index1():
-     result = ''
-     if request.method == 'POST':
-          if request.form['floor'] == '1':
-               print('кнопа 1')
-          elif request.form['floor'] == '2':
-               print('кнопа 2')
+    global mode
+    global control_mode
+    global flag
+    result = ''
 
-     return render_template('index1.html',title='Home', result = result)
+    if request.method == 'POST':
+        if request.form['floor']=='Автоматический режим':
+            flag = True #авто режим
+        elif request.form['floor'] == '1':
+            print('кнопа 1')
+            mode = 1
+            flag = False
+        elif request.form['floor'] == '2':
+            print('кнопа 2')
+            mode = 2
+            flag = False
+        elif request.form['floor'] == 'Стоп':
+            print('кнопа стоп')
+            mode = 0
+            flag = False
+        print(mode)
+
+
+    return render_template('index1.html',title='Home', result = result)
 
 @app.route('/update_log', methods=['GET', 'POST'])
 def update_log():
@@ -68,3 +88,18 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/data', methods=['GET'])
+def get_data():
+    global mode
+    global flag
+
+    if flag==False:
+        if mode == 0:
+            return '0'
+        elif mode == 1:
+            return '1'
+        elif mode == 2:
+            return '2'
+    else:
+        return 'A'
