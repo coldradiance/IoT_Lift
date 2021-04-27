@@ -4,9 +4,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
-from flask import jsonify
 
-from flask_sqlalchemy import SQLAlchemy
 from app.tabl import log
 
 mode = 0
@@ -103,3 +101,21 @@ def get_data():
             return '2'
     else:
         return 'A'
+
+
+@app.route('/postjson', methods=['GET', 'POST'])
+def postJsonHandler():
+    print(request.is_json)
+    content = request.get_json()
+    print(type(content))
+    if request.is_json:
+        with open ('output.txt', 'a') as f:
+            floor = content['floor']
+            controlmode = content['controlmode']
+            timeStamp = content['timeStamp']
+            dayStamp = content['dayStamp']
+            f.write(str(floor)+'\t'+str(controlmode)+'\t'+str(timeStamp)+'\t'+dayStamp+'\n')
+
+    return 'JSON posted data'
+
+
